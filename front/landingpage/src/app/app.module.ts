@@ -5,10 +5,14 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import {NgxLocalStorageModule} from 'ngx-localstorage';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutComponent } from './layout/layout.component';
+import { MenuComponent } from './layout/menu/menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

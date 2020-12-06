@@ -5,6 +5,7 @@
 }
 
 $white: #fff !default;
+$red: red;
 $font-size-dash: 0.875rem !default;
 $font-size-base: $font-size-dash !default;
 $font-size-xl: ($font-size-base * 1.428);
@@ -36,14 +37,14 @@ body {
   min-height: 50vh;
   max-height: 999px;
   padding: 0;
-  color: #ffffff;
+  color: $white;
   position: relative;
   overflow: hidden;
 }
 
 .page-header .content-center.brand {
   width: 47%;
-  color: red;
+  color: $red;
   position: absolute;
   top: 50%;
 }
@@ -280,11 +281,6 @@ body {
       }
     }
   }
-
-  /*@include topbar-x-rotation();
-  @include topbar-back-rotation();
-  @include bottombar-x-rotation();
-  @include bottombar-back-rotation();*/
 
   @-webkit-keyframes fadeIn {
     0% {
