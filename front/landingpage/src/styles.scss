@@ -14,6 +14,8 @@ $default: #344675 !default;
 
 body {
   background-color: #171941;
+  background-image: url(assets/img/page/dots.png);
+  background-size: contain;
 }
 
 .page-header {
@@ -24,7 +26,7 @@ body {
   position: relative;
 }
 
-.navbar{
+.navbar {
   color: $white;
   padding-top: 0px;
   margin-top: -5px;
@@ -315,6 +317,32 @@ body {
   }
 }
 
+@keyframes show_navbar_collapse {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+    transform-origin: 100% 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hide_navbar_collapse {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: 100% 0;
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
 path {
   fill: transparent;
 }
@@ -323,12 +351,64 @@ text {
   fill: #FF9800;
 }
 
-img.logo{
+img.logo {
   border-radius: 30% 30%;
   width: 280px;
   height: 190px;
   background: white;
   border: solid #228cb5;
   border-width: 0 10px;
-  margin-bottom:-80px;
+  margin-bottom: -80px;
+  margin-top: -10px;
+}
+
+@media screen and (max-width: 991px) {
+
+  .navbar .navbar-collapse.collapsing,
+  .navbar .navbar-collapse.collapse {
+    -webkit-animation: show_navbar_collapse 0.2s ease forwards;
+    animation: show_navbar_collapse 0.2s ease forwards;
+  }
+
+  .navbar-collapse {
+    position: absolute;
+    width: calc(100% - 1.4rem);
+    height: auto !important;
+    left: 0;
+    top: 0;
+    margin: 0.7rem;
+    background: #1f2251;
+    border-radius: 0.2857rem;
+    padding: 1.4rem;
+  }
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+.justify-content-end {
+  -webkit-box-pack: end !important;
+  justify-content: flex-end !important;
+}
+
+.navbar-collapse {
+  flex-basis: 100%;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.navbar-nav i,
+a {
+  color: $white;
+  font-size: 24px;
+}
+
+.divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
 }
