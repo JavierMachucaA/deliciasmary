@@ -50,7 +50,7 @@ body {
   height: 300px;
   width: 300px;
   left: 3%;
-  top: -21%;
+  top: 30%;
   opacity: 0.3;
   -webkit-animation-duration: 5s;
   animation-duration: 5s;
@@ -313,3 +313,19 @@ body {
   }
 }
 
+path {
+  fill: transparent;
+}
+
+text {
+  fill: #FF9800;
+}
+
+img.logo{
+  border-radius: 30% 30%;
+  width: 300px;
+  height: 141px;
+  background: white;
+  border: solid #228cb5;
+  border-width: 0 10px;
+}
