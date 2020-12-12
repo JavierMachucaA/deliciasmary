@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "style/variables";
+
 @font-face {
   font-family: "White-Pigeon";
   src: local("White-Pigeon"), url(./assets/fonts/White-Pigeon/White-Pigeon.otf) format("truetype");
@@ -15,7 +17,7 @@ $default: #344675 !default;
 
 body {
   background-color: #171941;
-  background-image: url(assets/img/page/dots.png);
+  background-image: url("/assets/img/page/dots.png");
   background-size: contain;
 }
 

@@ -7,12 +7,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
 import { MenuComponent } from './layout/menu/menu.component';
+import { BrandComponent } from './components/brand/brand.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    MenuComponent
+    MenuComponent,
+    BrandComponent
   ],
   imports: [
     BrowserModule,

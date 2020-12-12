@@ -1,0 +1,13 @@
+<div class="content-brand-custom" >
+	
+	<div class="row" >
+		
+		<div class="col-8 " *ngIf="slide" [@simpleFadeAnimation]="'in'">
+			<div class="row text-center"><div class="time">{{seconds}}</div> </div>
+			<div class="row text-center ">
+				<img   [src]="slide" alt="" srcset="" class="set-height" >
+			</div>
+		</div>
+		
+	</div>
+</div>
