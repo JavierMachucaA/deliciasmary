@@ -48,7 +48,7 @@ export class BrandComponent implements OnInit {
 	private subscription: Subscription;
 	@Output() TimerExpired: EventEmitter<any> = new EventEmitter<any>();
 	@Input() SearchDate: moment.Moment = moment();
-	@Input() ElapsTime: number = 0.10;
+	@Input() ElapsTime: number = 0.5;
 
 	public searchEndDate: moment.Moment;
 	public remainingTime: number;
