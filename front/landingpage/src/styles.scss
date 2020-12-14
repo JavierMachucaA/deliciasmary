@@ -1,23 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "style/variables";
+@import 'style/variables';
 
 @font-face {
-  font-family: "White-Pigeon";
-  src: local("White-Pigeon"), url(./assets/fonts/White-Pigeon/White-Pigeon.otf) format("truetype");
+  font-family: 'Rylan-Regular';
+  src: local('Rylan-Regular'), url(./assets/fonts/Rylan/Rylan-Regular.otf) format('truetype');
 }
 
-$white: #fff !default;
-$red: red;
-$font-size-dash: 0.875rem !default;
-$font-size-base: $font-size-dash !default;
-$font-size-xl: ($font-size-base * 1.428);
-$font-weight-bold: 700 !default;
-$black: #000 !default;
-$default: #344675 !default;
-
 body {
-  background-color: #171941;
-  background-image: url("/assets/img/page/dots.png");
+  background-color: $background-color;
+  background-image: url('/assets/img/page/dots.png');
   background-size: contain;
 }
 
@@ -79,12 +70,10 @@ body {
 }
 
 .title-brand {
-  font-family: White-Pigeon;
   color: whitesmoke;
 }
 
 .title-brand:hover {
-  font-family: White-Pigeon;
   color: whitesmoke;
 }
 
@@ -231,7 +220,7 @@ body {
       color: $default;
     }
 
-    button.navbar-toggler[data-target="#navigation"] {
+    button.navbar-toggler[data-target='#navigation'] {
       padding-top: 0;
     }
 

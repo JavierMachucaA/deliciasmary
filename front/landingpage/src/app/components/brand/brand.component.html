@@ -1,13 +1,28 @@
-<div class="content-brand-custom" >
-	
-	<div class="row" >
-		
-		<div class="col-8 " *ngIf="slide" [@simpleFadeAnimation]="'in'">
-			<div class="row text-center"><div class="time">{{seconds}}</div> </div>
-			<div class="row text-center ">
-				<img   [src]="slide" alt="" srcset="" class="set-height" >
-			</div>
-		</div>
-		
+<div class="content-brand-custom">
+
+  <div class="row" *ngIf="slide" [@simpleFadeAnimation]="'in'">
+    <div class="col-1 arrows-icons">
+		<button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+			<mat-icon>keyboard_arrow_left</mat-icon>
+		  </button>
+    </div>
+    <div class="col-4 ">
+      <div class="row text-center">
+        <div class="time">{{seconds}}</div>
+      </div>
+      <div class="row text-center ">
+        <img [src]="slide" alt="" srcset="" class="set-height border-img-custom">
+      </div>
 	</div>
+	<div class="col-6 title-brand">
+		<h1>{{title_brand}}</h1>
+		<br>
+		<p>{{text}} </p>
+	</div>
+    <div class="col-1 arrows-icons">
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </div>
 </div>

@@ -1,25 +1,73 @@
-.content-brand-custom{
-    padding-top: 20vh;
+@import "../../../style/variables";
+
+.content-brand-custom {
+  padding-top: 20vh;
 }
 
-.set-height{
-	max-height: 600px;
+.set-height {
+  max-height: 800px;
 }
-.row{
-	margin-left: 0px !important;
-	margin-right: 0px !important;
+
+.row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 .time {
-	// background-color: #FC5B2D;
-	color: white;
-    width: 25px;
-    height: 20px;
-    display: inline-block;
-    border: 2px white;
-    border-radius: 5px;
-	border-style: outset;
-	margin-top: auto;
-	margin-bottom: auto;
-	height: 30px;
+  // background-color: #FC5B2D;
+  color: white;
+  width: 25px;
+  height: 20px;
+  display: inline-block;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 30px;
+  position: absolute;
+}
+
+.border-img-custom {
+  border-width: 19px;
+  border-style: solid;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-image-source: linear-gradient(10deg, #171946 10%, #2e113d 100%);
+  border-image-slice: 60 30;
+}
+
+.arrows-icons {
+  color: $white;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 4.73em;
+}
+
+.mat-button.mat-primary.mat-button-focus-overlay {
+  background-color: transparent;
+}
+
+.material-icons{
+	vertical-align: bottom !important;
+	color:$background-color;
+}
+
+.title-brand{
+	font-family: Rylan-Regular;
+	color: $white;
+}
+
+h1 {
+	// font-family: Calline;
+	font-size: 50px;
+	font-style: italic ;
+	font-weight: bold;
+	
+}
+
+p{
+	// font-family: Calline;
+	font-size: 38px;
 }
