@@ -34,6 +34,7 @@
   border-top-left-radius: 5px;
   border-image-source: linear-gradient(10deg, #171946 10%, #2e113d 100%);
   border-image-slice: 60 30;
+  max-width: 540px;
 }
 
 .arrows-icons {
@@ -69,5 +70,7 @@ h1 {
 
 p{
 	// font-family: Calline;
-	font-size: 38px;
+  font-size: 38px;
+  text-align: justify;
+  // text-justify: inter-word;
 }

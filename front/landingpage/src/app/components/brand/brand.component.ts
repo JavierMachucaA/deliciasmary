@@ -11,7 +11,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 		// the fade-in/fade-out animation.
 		trigger('simpleFadeAnimation', [
 
-			// the "in" style determines the "resting" state of the element when it is visible.
+			// the 'in' style determines the 'resting' state of the element when it is visible.
 			state('in', style({ opacity: 1 })),
 
 			// fade in when created. this could also be written as transition('void => *')
@@ -62,7 +62,7 @@ export class BrandComponent implements OnInit {
 	public everySecond: Observable<number>;
 
 	constructor(private ref: ChangeDetectorRef) {
-		this.searchEndDate = this.SearchDate.add(this.ElapsTime, "minutes");
+		this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
 	}
 
 	ngOnInit() {
@@ -70,28 +70,26 @@ export class BrandComponent implements OnInit {
 		this.index = 0;
 		this.title_brand = this.titles_brand[this.index].title;
 		this.text = this.texts[this.index].text;
-		this.slide = this.slides[this.index++].image;
-		this.everySecond = timer(0,everyInMinutes); //    
+		this.slide = this.slides[this.index].image;
+		this.everySecond = timer(0, everyInMinutes); //    
 		this.subscription = this.everySecond.subscribe((seconds) => {
 
 			var currentTime: moment.Moment = moment();
 			this.remainingTime = this.searchEndDate.diff(currentTime)
 			this.remainingTime = this.remainingTime / 1000;
 
-			if (this.remainingTime == 2) {
-				this.slide = null;
-			}
+			this.clearBrand();
+
 			if (this.remainingTime <= 0) {
+				this.index++;
 				this.title_brand = this.titles_brand[this.index].title;
 				this.text = this.texts[this.index].text;
-				this.slide = this.slides[this.index++].image;
-			}
-			if (this.remainingTime <= 0) {
+				this.slide = this.slides[this.index].image;
+			
 				this.SearchDate = moment();
-				this.searchEndDate = this.SearchDate.add(this.ElapsTime, "minutes");
+				this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
 				this.TimerExpired.emit();
-			}
-			else {
+			} else {
 				this.minutes = Math.floor(this.remainingTime / 60);
 				this.seconds = Math.floor(this.remainingTime - this.minutes * 60);
 			}
@@ -104,6 +102,47 @@ export class BrandComponent implements OnInit {
 
 	ngOnDestroy(): void {
 		this.subscription.unsubscribe();
+	}
+
+	public async changeBrand(next: boolean = true ) {
+		await this.clearBrand(false);
+		if (next) {
+			this.index++;
+		} else {
+			this.index--;
+		}
+		if (this.index == (this.slides.length)) {
+			this.index = 0;
+		}
+		if (this.index < 0) {
+			this.index = this.slides.length-1;
+		}
+		this.title_brand = this.titles_brand[this.index].title;
+		this.text = this.texts[this.index].text;
+		this.slide = this.slides[this.index].image;
+			
+		
+		this.SearchDate = moment();
+		this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
+		this.TimerExpired.emit();
+		this.minutes = Math.floor(this.remainingTime / 60);
+		this.seconds = Math.floor(this.remainingTime - this.minutes * 60);
+		this.ref.markForCheck();
+		
+	}
+
+	public async clearBrand  (byTime : boolean = true){
+		if (byTime && this.remainingTime == 2) {
+			this.slide = null;
+		}
+		if (!byTime) {
+			this.slide = null;
+			await this.delay(1000);
+		}
+	}
+
+	public delay(ms: number) {
+		return new Promise( resolve => setTimeout(resolve, ms) );
 	}
 
 }

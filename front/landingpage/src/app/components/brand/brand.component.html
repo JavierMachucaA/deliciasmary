@@ -2,7 +2,7 @@
 
   <div class="row" *ngIf="slide" [@simpleFadeAnimation]="'in'">
     <div class="col-1 arrows-icons">
-		<button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+		<button mat-fab color="primary" (click)="changeBrand(false)">
 			<mat-icon>keyboard_arrow_left</mat-icon>
 		  </button>
     </div>
@@ -20,7 +20,7 @@
 		<p>{{text}} </p>
 	</div>
     <div class="col-1 arrows-icons">
-      <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+      <button mat-fab color="primary" aria-label="" (click)="changeBrand()">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
