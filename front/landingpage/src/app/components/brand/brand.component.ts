@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, Input } from '@angular/core';
-import { Subscription, Observable, timer } from 'rxjs';
-import * as moment from 'moment';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import * as moment from 'moment';
+import { Observable, Subscription, timer } from 'rxjs';
+import { REFRESH_BRAND } from '../../enum/refresh-brand.enum';
 
 @Component({
 	selector: 'brand',
@@ -28,21 +29,23 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class BrandComponent implements OnInit {
 	public slides = [
-		{ image: '/assets/img/content/brand/first.jpg' }, 
+		{ image: '/assets/img/content/brand/first.jpg' },
 		{ image: '/assets/img/content/brand/second.jpg' },
-		{ image: '/assets/img/content/brand/tematico.jpg' }, 
+		{ image: '/assets/img/content/brand/tematico.jpg' },
 		{ image: '/assets/img/content/brand/tematico2.jpg' }];
 	public titles_brand = [
-		{ title: 'Tenemos diferentes entregas para regalo🎁' }, 
-		{ title: 'Diferentes opciones en contenido 🤔' }, 
-		{ title: 'Bandejas para los más pequeños 🤗' }, 
+		{ title: 'Tenemos diferentes entregas para regalo🎁' },
+		{ title: 'Diferentes opciones en contenido 🤔' },
+		{ title: 'Bandejas para los más pequeños 🤗' },
 		{ title: 'Hasta dinosaurios Graaaaarg 🙉' }];
 	public texts = [
-		{ text: 'Podemos entregar nuestras bandejas para tus seres queridos en sus días 🍰🎂🥳'+'.'+ 
-				'Con un contenido y adorno dependiento la ocasión que lo requiera 😎'},
-		{ text: 'No solamente ofrecemos bandejas, sino diferentes opciones y productos diferentes. Por ejemplo, plantas, dulces, conservas, y varios productos, para ti o los que quieras 🤯'},
-		{ text: 'Si quieres un desayuno para tu sobrino o hijo pequeño tenemos diferentes selecciones o adornos que te permitirán darle una sopresa maravillosa y deliciosa 👦👧🧒😋 '},
-		{ text: 'Nos hemos encontrados con fanáticos de algunas tematicas, nos importa que puedas dar un regalo dedicado y único. Aquí tenemos uno para un amiguito que le encantan los dinosaurios ! 🦕🦖'}
+		{
+			text: 'Podemos entregar nuestras bandejas para tus seres queridos en sus días 🍰🎂🥳' + '.' +
+				'Con un contenido y adorno dependiento la ocasión que lo requiera 😎'
+		},
+		{ text: 'No solamente ofrecemos bandejas, sino diferentes opciones y productos diferentes. Por ejemplo, plantas, dulces, conservas, y varios productos, para ti o los que quieras 🤯' },
+		{ text: 'Si quieres un desayuno para tu sobrino o hijo pequeño tenemos diferentes selecciones o adornos que te permitirán darle una sopresa maravillosa y deliciosa 👦👧🧒😋 ' },
+		{ text: 'Nos hemos encontrados con fanáticos de algunas tematicas, nos importa que puedas dar un regalo dedicado y único. Aquí tenemos uno para un amiguito que le encantan los dinosaurios ! 🦕🦖' }
 	];
 
 	private subscription: Subscription;
@@ -55,11 +58,15 @@ export class BrandComponent implements OnInit {
 	public minutes: number;
 	public seconds: number;
 	public slide: string;
-	public title_brand :string;
-	public text : string;
+	public title_brand: string;
+	public text: string;
 	public index: number;
+	public firstIndex : number;
+	public lastIndex : number;
 
 	public everySecond: Observable<number>;
+
+	public REFRESH_BRAND = REFRESH_BRAND;
 
 	constructor(private ref: ChangeDetectorRef) {
 		this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
@@ -68,35 +75,19 @@ export class BrandComponent implements OnInit {
 	ngOnInit() {
 		let everyInMinutes = this.ElapsTime * 1000;
 		this.index = 0;
+		this.firstIndex = 0;
+		this.lastIndex = this.slides.length - 1 ;
 		this.title_brand = this.titles_brand[this.index].title;
 		this.text = this.texts[this.index].text;
 		this.slide = this.slides[this.index].image;
-		this.everySecond = timer(0, everyInMinutes); //    
+		this.everySecond = timer(0, ); //    everyInMinutes
 		this.subscription = this.everySecond.subscribe((seconds) => {
 
 			var currentTime: moment.Moment = moment();
 			this.remainingTime = this.searchEndDate.diff(currentTime)
 			this.remainingTime = this.remainingTime / 1000;
 
-			this.clearBrand();
-
-			if (this.remainingTime <= 0) {
-				this.index++;
-				this.title_brand = this.titles_brand[this.index].title;
-				this.text = this.texts[this.index].text;
-				this.slide = this.slides[this.index].image;
-			
-				this.SearchDate = moment();
-				this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
-				this.TimerExpired.emit();
-			} else {
-				this.minutes = Math.floor(this.remainingTime / 60);
-				this.seconds = Math.floor(this.remainingTime - this.minutes * 60);
-			}
-			this.ref.markForCheck();
-			if (this.index == (this.slides.length)) {
-				this.index = 0;
-			}
+			this.changeBrand(REFRESH_BRAND.BYTIME);
 		});
 	}
 
@@ -104,45 +95,52 @@ export class BrandComponent implements OnInit {
 		this.subscription.unsubscribe();
 	}
 
-	public async changeBrand(next: boolean = true ) {
-		await this.clearBrand(false);
-		if (next) {
+	public async changeBrand(refresh: REFRESH_BRAND) {
+		if (refresh == REFRESH_BRAND.NEXT || 
+			refresh == REFRESH_BRAND.BYTIME && this.remainingTime <= 0) {
 			this.index++;
-		} else {
+		} 
+		
+		if (refresh == REFRESH_BRAND.BACK) {
 			this.index--;
 		}
-		if (this.index == (this.slides.length)) {
-			this.index = 0;
-		}
-		if (this.index < 0) {
-			this.index = this.slides.length-1;
-		}
-		this.title_brand = this.titles_brand[this.index].title;
-		this.text = this.texts[this.index].text;
-		this.slide = this.slides[this.index].image;
-			
+
+		this.index = (this.index < 0 ? this.lastIndex : (this.index == this.lastIndex ? this.firstIndex : this.index));
+
+		if (refresh == REFRESH_BRAND.BYTIME && this.remainingTime <= 0 || 
+			refresh == REFRESH_BRAND.NEXT || 
+			refresh == REFRESH_BRAND.BACK) {
+
+			await this.clearBrand(false);
+			this.title_brand = this.titles_brand[this.index].title;
+			this.text = this.texts[this.index].text;
+			this.slide = this.slides[this.index].image;
+
+			this.SearchDate = moment();
+			this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
+			this.TimerExpired.emit();
+		} 
 		
-		this.SearchDate = moment();
-		this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
-		this.TimerExpired.emit();
+		// update minuts and seconds
 		this.minutes = Math.floor(this.remainingTime / 60);
 		this.seconds = Math.floor(this.remainingTime - this.minutes * 60);
+
+		// allow show the new change on view
 		this.ref.markForCheck();
-		
 	}
 
-	public async clearBrand  (byTime : boolean = true){
+	public async clearBrand(byTime: boolean = true) {
 		if (byTime && this.remainingTime == 2) {
 			this.slide = null;
 		}
 		if (!byTime) {
 			this.slide = null;
-			await this.delay(1000);
+			await this.delay(200);
 		}
 	}
 
 	public delay(ms: number) {
-		return new Promise( resolve => setTimeout(resolve, ms) );
+		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 
 }
