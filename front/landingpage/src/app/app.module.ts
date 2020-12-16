@@ -12,6 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import { HomeComponent } from './components/home/home.component';
+import { AppRoutingModule } from '../app/app-routes';
+
 
 @NgModule({
   declarations: [
@@ -19,10 +22,12 @@ import {MatButtonModule} from '@angular/material/button';
     LayoutComponent,
     MenuComponent,
     BrandComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     MatCardModule,
     MatDialogModule,
     MatButtonModule,
