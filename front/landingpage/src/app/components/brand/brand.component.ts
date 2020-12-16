@@ -1,8 +1,9 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, Subscription, timer } from 'rxjs';
 import { REFRESH_BRAND } from '../../enum/refresh-brand.enum';
+import { BrandHandler } from '../../handlers/brand.handler';
 
 @Component({
 	selector: 'brand',
@@ -27,7 +28,11 @@ import { REFRESH_BRAND } from '../../enum/refresh-brand.enum';
 		])
 	]
 })
-export class BrandComponent implements OnInit {
+export class BrandComponent implements OnInit,OnDestroy {
+	@Output() TimerExpired: EventEmitter<any> = new EventEmitter<any>();
+	@Input() searchDate: moment.Moment = moment();
+	@Input() elapsTime: number = 0.5;
+
 	public slides = [
 		{ image: '/assets/img/content/brand/first.jpg' },
 		{ image: '/assets/img/content/brand/second.jpg' },
@@ -49,38 +54,39 @@ export class BrandComponent implements OnInit {
 	];
 
 	private subscription: Subscription;
-	@Output() TimerExpired: EventEmitter<any> = new EventEmitter<any>();
-	@Input() SearchDate: moment.Moment = moment();
-	@Input() ElapsTime: number = 0.5;
-
 	public searchEndDate: moment.Moment;
-	public remainingTime: number;
-	public minutes: number;
-	public seconds: number;
+	public everySecond: Observable<number>;
+	public brandHandler: BrandHandler ;
+	
 	public slide: string;
 	public title_brand: string;
 	public text: string;
+	
+	public remainingTime: number;
+	public minutes: number;
+	public seconds: number;
+
 	public index: number;
 	public firstIndex : number;
 	public lastIndex : number;
 
-	public everySecond: Observable<number>;
+	public readonly REFRESH_BRAND = REFRESH_BRAND;
 
-	public REFRESH_BRAND = REFRESH_BRAND;
-
-	constructor(private ref: ChangeDetectorRef) {
-		this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
+	constructor(public ref: ChangeDetectorRef) {
+		this.searchEndDate = this.searchDate.add(this.elapsTime, 'minutes');
 	}
 
 	ngOnInit() {
-		let everyInMinutes = this.ElapsTime * 1000;
+		/*this.brandHandler = new BrandHandler(this);
+		this.brandHandler.run();*/
+		let everyInMinutes = this.elapsTime * 1000;
 		this.index = 0;
 		this.firstIndex = 0;
 		this.lastIndex = this.slides.length - 1 ;
 		this.title_brand = this.titles_brand[this.index].title;
 		this.text = this.texts[this.index].text;
 		this.slide = this.slides[this.index].image;
-		this.everySecond = timer(0, ); //    everyInMinutes
+		this.everySecond = timer(0, everyInMinutes); //    
 		this.subscription = this.everySecond.subscribe((seconds) => {
 
 			var currentTime: moment.Moment = moment();
@@ -89,6 +95,7 @@ export class BrandComponent implements OnInit {
 
 			this.changeBrand(REFRESH_BRAND.BYTIME);
 		});
+		
 	}
 
 	ngOnDestroy(): void {
@@ -116,8 +123,8 @@ export class BrandComponent implements OnInit {
 			this.text = this.texts[this.index].text;
 			this.slide = this.slides[this.index].image;
 
-			this.SearchDate = moment();
-			this.searchEndDate = this.SearchDate.add(this.ElapsTime, 'minutes');
+			this.searchDate = moment();
+			this.searchEndDate = this.searchDate.add(this.elapsTime, 'minutes');
 			this.TimerExpired.emit();
 		} 
 		
