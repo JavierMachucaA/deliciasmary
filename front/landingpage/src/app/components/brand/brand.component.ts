@@ -92,7 +92,7 @@ export class BrandComponent implements OnInit,OnDestroy {
 		this.title_brand = this.titles_brand[this.index].title;
 		this.text = this.texts[this.index].text;
 		this.slide = this.slides[this.index].image;
-		this.everySecond = timer(0, ); //    everyInMinutes
+		this.everySecond = timer(0, everyInMinutes); //    
 		this.subscription = this.everySecond.subscribe((seconds) => {
 
 			var currentTime: moment.Moment = moment();
