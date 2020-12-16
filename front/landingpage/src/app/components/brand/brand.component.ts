@@ -11,7 +11,7 @@ import { BrandHandler } from '../../handlers/brand.handler';
 	styleUrls: ['./brand.component.scss'],
 	animations: [
 		// the fade-in/fade-out animation.
-		trigger('simpleFadeAnimation', [
+		 trigger('simpleFadeAnimation', [
 
 			// the 'in' style determines the 'resting' state of the element when it is visible.
 			state('in', style({ opacity: 1 })),
@@ -23,8 +23,8 @@ import { BrandHandler } from '../../handlers/brand.handler';
 			]),
 
 			// fade out when destroyed. this could also be written as transition('void => *')
-			transition(':leave',
-				animate(400, style({ opacity: 0 })))
+			/*transition(':leave',
+				animate(400, style({ opacity: 0 })))*/
 		])
 	]
 })
@@ -37,12 +37,17 @@ export class BrandComponent implements OnInit,OnDestroy {
 		{ image: '/assets/img/content/brand/first.jpg' },
 		{ image: '/assets/img/content/brand/second.jpg' },
 		{ image: '/assets/img/content/brand/tematico.jpg' },
-		{ image: '/assets/img/content/brand/tematico2.jpg' }];
+		{ image: '/assets/img/content/brand/tematico2.jpg' },
+		{ image: '/assets/img/content/brand/products.jpg' },
+	];
 	public titles_brand = [
 		{ title: 'Tenemos diferentes entregas para regalo🎁' },
 		{ title: 'Diferentes opciones en contenido 🤔' },
 		{ title: 'Bandejas para los más pequeños 🤗' },
-		{ title: 'Hasta dinosaurios Graaaaarg 🙉' }];
+		{ title: 'Hasta dinosaurios Graaaaarg 🙉' },
+		{ title: 'Algunos de nuestros productos 😋'}
+
+	];
 	public texts = [
 		{
 			text: 'Podemos entregar nuestras bandejas para tus seres queridos en sus días 🍰🎂🥳' + '.' +
@@ -50,7 +55,8 @@ export class BrandComponent implements OnInit,OnDestroy {
 		},
 		{ text: 'No solamente ofrecemos bandejas, sino diferentes opciones y productos diferentes. Por ejemplo, plantas, dulces, conservas, y varios productos, para ti o los que quieras 🤯' },
 		{ text: 'Si quieres un desayuno para tu sobrino o hijo pequeño tenemos diferentes selecciones o adornos que te permitirán darle una sopresa maravillosa y deliciosa 👦👧🧒😋 ' },
-		{ text: 'Nos hemos encontrados con fanáticos de algunas tematicas, nos importa que puedas dar un regalo dedicado y único. Aquí tenemos uno para un amiguito que le encantan los dinosaurios ! 🦕🦖' }
+		{ text: 'Nos hemos encontrados con fanáticos de algunas tematicas, nos importa que puedas dar un regalo dedicado y único. Aquí tenemos uno para un amiguito que le encantan los dinosaurios ! 🦕🦖' },
+		{ text: 'Tenemos dulces de leche, mermeladas, conservas, quesos entre varias cosas.'}
 	];
 
 	private subscription: Subscription;
@@ -82,11 +88,11 @@ export class BrandComponent implements OnInit,OnDestroy {
 		let everyInMinutes = this.elapsTime * 1000;
 		this.index = 0;
 		this.firstIndex = 0;
-		this.lastIndex = this.slides.length - 1 ;
+		this.lastIndex = this.slides.length;
 		this.title_brand = this.titles_brand[this.index].title;
 		this.text = this.texts[this.index].text;
 		this.slide = this.slides[this.index].image;
-		this.everySecond = timer(0, everyInMinutes); //    
+		this.everySecond = timer(0, ); //    everyInMinutes
 		this.subscription = this.everySecond.subscribe((seconds) => {
 
 			var currentTime: moment.Moment = moment();
@@ -142,7 +148,7 @@ export class BrandComponent implements OnInit,OnDestroy {
 		}
 		if (!byTime) {
 			this.slide = null;
-			await this.delay(200);
+			await this.delay(400);
 		}
 	}
 
