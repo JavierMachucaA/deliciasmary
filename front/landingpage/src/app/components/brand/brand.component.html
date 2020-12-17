@@ -1,5 +1,4 @@
-<div class="content-brand-custom">
-
+<div class="content-page">
   <div class="row set-height-baner" > <!---->
     <div class="col-1 arrows-icons">
       <button mat-fab color="primary" (click)="changeBrand(REFRESH_BRAND.BACK)">
@@ -14,11 +13,6 @@
         <img [src]="slide" *ngIf="slide" [@simpleFadeAnimation]="'in'" alt="" srcset="" class="set-height border-img-custom">
       </div>
     </div>
-    <!--<div class="d-block d-sm-none col-xs-1 col-sm-1 arrows-icons">
-      <button mat-fab color="primary" aria-label="" (click)="changeBrand(REFRESH_BRAND.NEXT)">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
-    </div>-->
     <div class="col-6 title-brand">
       <h1>{{title_brand}}</h1>
       <br>

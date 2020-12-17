@@ -10,6 +10,11 @@ body {
   background-color: $background-color;
   background-image: url('/assets/img/page/dots.png');
   background-size: contain;
+  color: $white;
+}
+
+.content-page {
+  padding-top: 20vh;
 }
 
 .page-header {
@@ -19,6 +24,22 @@ body {
 .header-filter {
   position: relative;
 }
+
+
+h1 {
+	font-size: 50px;
+	// font-style: italic ;
+	font-weight: bold;
+	
+}
+
+p{
+	// font-family: Calline;
+  font-size: 30px;
+  text-align: justify;
+  // text-justify: inter-word;
+}
+
 
 .navbar {
   color: $white;
@@ -30,7 +51,6 @@ body {
   min-height: 50vh;
   max-height: 999px;
   padding: 0;
-  color: $white;
   position: relative;
   overflow: hidden;
 }

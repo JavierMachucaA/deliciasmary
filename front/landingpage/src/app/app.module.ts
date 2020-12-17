@@ -14,6 +14,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from '../app/app-routes';
+import { DefinitionComponent } from './components/definition/definition.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { LocationComponent } from './components/location/location.component';
 
 
 @NgModule({
@@ -23,6 +27,10 @@ import { AppRoutingModule } from '../app/app-routes';
     MenuComponent,
     BrandComponent,
     HomeComponent,
+    DefinitionComponent,
+    ProductsComponent,
+    ContactComponent,
+    LocationComponent,
   ],
   imports: [
     BrowserModule,
