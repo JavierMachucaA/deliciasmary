@@ -6,6 +6,11 @@
   src: local('Rylan-Regular'), url(./assets/fonts/Rylan/Rylan-Regular.otf) format('truetype');
 }
 
+@font-face {
+  font-family: 'White-Pigeon';
+  src: local('White-Pigeon'), url(./assets/fonts/White-Pigeon/White-Pigeon.otf) format('truetype');
+}
+
 body {
   background-color: $background-color;
   background-image: url('/assets/img/page/dots.png');
@@ -13,8 +18,12 @@ body {
   color: $white;
 }
 
+.row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
 .content-page {
-  padding-top: 20vh;
+  padding-top: 10vh;
 }
 
 .page-header {
@@ -418,4 +427,10 @@ a {
   margin: 9px 0;
   overflow: hidden;
   background-color: #e5e5e5;
+}
+
+hr {
+  height: 1px;
+  background-color: whitesmoke;
+  border: none;
 }
