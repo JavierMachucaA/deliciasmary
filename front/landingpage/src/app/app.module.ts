@@ -18,6 +18,7 @@ import { DefinitionComponent } from './components/definition/definition.componen
 import { ProductsComponent } from './components/products/products.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { LocationComponent } from './components/location/location.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { LocationComponent } from './components/location/location.component';
     ProductsComponent,
     ContactComponent,
     LocationComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
